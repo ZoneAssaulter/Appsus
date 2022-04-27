@@ -2,8 +2,8 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/storage.service.js'
 
 export const emailService = {
-    query,
-
+  query,
+  testFunc,
 }
 
 const STORAGE_KEY = 'mailDB'
@@ -75,39 +75,122 @@ const gEmails = [
     sentAt: 1551133930594,
     from: 'user@appsus.com',
     to: 'koko@koko.com',
-  }
+  },
 ]
 
 const loggedUser = {
-    email: 'user@appsus.com',
-    fullname: 'Puki Ben David'
+  email: 'user@appsus.com',
+  fullname: 'Puki Ben David',
 }
 
 _createEmails()
 
+function testFunc(){
+    console.log('test is complete!')
+}
+
 function query(criteria = null, sort = null) {
-    const emails = _loadEmailsFromStorage()
-    const allUserEmails = _getAllUserEmails(emails)
+    console.log('querying...')
+  const emails = _loadEmailsFromStorage()
+  console.log('loading emails inside of query:', emails)
+  const allUserEmails = _getAllUserEmails(emails)
+  if (!criteria) return Promise.resolve(allUserEmails)
+  const filteredEmails = _getFilteredEmails(allUserEmails, criteria)
+  if (sort) {
+    const mapSort = { byDate: 'sentAt', bySubject: 'subject' }
+    filteredEmails.sort((e1, e2) =>
+      e1[mapSort[sort.type]] < e2[mapSort[sort.type]]
+        ? sort.order
+        : sort.order * -1
+    )
+  }
+  return Promise.resolve(filteredEmails)
 }
 
 function _createEmails() {
-    let emails = _loadEmailsFromStorage()
-    if (!emails || !emails.length) {
-        emails = gEmails
-    }
-    _saveEmailsToStorage()
+  let emails = _loadEmailsFromStorage()
+  if (!emails || !emails.length) {
+    emails = gEmails
+  }
+  _saveEmailsToStorage()
+}
+
+function _createEmail(emailToSave, status = 'sent', id = utilService.makeId()) {
+  return {
+    id,
+    subject: emailToSave.subject,
+    body: emailToSave.body,
+    status,
+    isRead: false,
+    isStarred: false,
+    sentAt: Date.now(),
+    from: loggedUser.email,
+    to: emailToSave.toUser,
+  }
+}
+
+function _addEmail(emailToSave, status) {
+  let emails = _loadEmailsFromStorage()
+  let email = _createEmail(emailToSave, status)
+  emails = [email, ...emails]
+  _saveEmailsToStorage(emails)
+  return Promise.resolve(email)
+}
+
+function _updateEmail(emailToSave) {
+  const emails = _loadEmailsFromStorage()
+  const emailIdx = emails.findIndex((email) => email.id === emailToSave.id)
+  emails[emailIdx] = _createEmail(emailToSave, 'sent', emailToSave.id)
+  _saveEmailsToStorage()
+  return Promise.resolve()
 }
 
 function _getAllUserEmails(emails) {
-    return emails.filter((email)=>{
-        return email.from === loggedUser.email || email.to === loggedUser.email
-    })
+  return emails.filter((email) => {
+    return email.from === loggedUser.email || email.to === loggedUser.email
+  })
 }
 
-function _loadEmailsFromStorage(){
-    return storageService.loadFromStorage(STORAGE_KEY)
+function _getUserEmails(emails, type) {
+  return emails.filter((email) => {
+    return email[type] === loggedUser.email
+  })
 }
 
-function _saveEmailsToStorage(emails){
-    storageService.saveToStorage(STORAGE_KEY, emails)
+function _getCorrectEmails(emails, criteria) {
+  let { status, txt, isRead, isStarred } = criteria
+  status = status === 'all' ? '' : status
+  const filter = emails.filter((email) => {
+    const isReadFilter =
+      isRead === undefined || email.isRead === criteria.isRead
+    const isStarredFilter =
+      isStarred === undefined || email.isStarred === criteria.isStarred
+    return (
+      email.status.includes(status) &&
+      email.subject.toUpperCase().includes(txt.toUpperCase()) &&
+      isReadFilter &&
+      isStarredFilter
+    )
+  })
+  return filter
+}
+
+function _getFilteredEmails(emails, criteria) {
+  let { status } = criteria
+  const toUserEmails = _getUserEmails(emails, 'to')
+  const fromUserEmails = _getUserEmails(emails, 'from')
+  if (status === 'trash' || status === 'spam')
+    return _getCorrectEmails(emails, criteria)
+  else if (status === 'inbox') return _getCorrectEmails(toUserEmails, criteria)
+  else if (status === 'sent' || status === 'draft')
+    return _getCorrectEmails(fromUserEmails, criteria)
+  else return _getCorrectEmails(emails, criteria)
+}
+
+function _loadEmailsFromStorage() {
+  return storageService.loadFromStorage(STORAGE_KEY)
+}
+
+function _saveEmailsToStorage(emails) {
+  storageService.saveToStorage(STORAGE_KEY, emails)
 }

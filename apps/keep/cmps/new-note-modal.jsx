@@ -1,4 +1,4 @@
-import { NewTxtNote } from "./new-txt-note.jsx"
+import { NewTxtNote } from "./note-new-txt.jsx"
 import { NewImgNote } from "./note-new-img.jsx"
 import { NewTodosNote } from "./note-new-todo.jsx"
 import { NewVideoNote } from "./note-new-videio.jsx"
@@ -24,14 +24,14 @@ export class NewNoteModal extends React.Component {
         notesService.saveNote(note).then(
             this.props.loadNotes(),
             this.props.toggleNewNoteModal(),
-            eventBusService.emit('user-msg', {txt:'Note Added', type: 'success'})
+            eventBusService.emit('user-msg', { txt: 'Note Added', type: 'success' })
         )
 
     }
 
 
     render() {
-        const {exportedMail} = this.props
+        const { exportedMail } = this.props
         const { newNoteType } = this.state
         return (
             <section className="new-note-modal-container">
@@ -46,7 +46,7 @@ export class NewNoteModal extends React.Component {
                         </select>
                     </section>
                     <section className="modal-by-type">
-                        {newNoteType === 'note-txt' && <NewTxtNote type={newNoteType} onSaveNote={this.onSaveNote} exportedMail={exportedMail}/>}
+                        {newNoteType === 'note-txt' && <NewTxtNote type={newNoteType} onSaveNote={this.onSaveNote} exportedMail={exportedMail} />}
                         {newNoteType === 'note-video' && <NewVideoNote type={newNoteType} onSaveNote={this.onSaveNote} />}
                         {newNoteType === 'note-img' && <NewImgNote type={newNoteType} onSaveNote={this.onSaveNote} />}
                         {newNoteType === 'note-todos' && <NewTodosNote type={newNoteType} onSaveNote={this.onSaveNote} />}

@@ -25,7 +25,6 @@ export class DynamicNote extends React.Component {
 
     loadNote = () => {
         const { note } = this.props
-
         this.setState({ note })
     }
 
@@ -38,14 +37,14 @@ export class DynamicNote extends React.Component {
     onDeleteNote = (noteId) => {
         notesService.deleteNote(noteId).then(() => {
             this.props.loadNotes()
-            eventBusService.emit('user-msg', {txt:'Note Deleted', type: 'success'})
+            eventBusService.emit('user-msg', { txt: 'Note Deleted', type: 'success' })
         })
     }
 
     onDuplicateNote = (noteId) => {
         notesService.duplicateNote(noteId).then(() => {
             this.props.loadNotes()
-            eventBusService.emit('user-msg', {txt:'Note Duplicated', type: 'success'})
+            eventBusService.emit('user-msg', { txt: 'Note Duplicated', type: 'success' })
         })
     }
 
@@ -72,10 +71,10 @@ export class DynamicNote extends React.Component {
 
     onSaveEdit = (ev, note) => {
         ev.preventDefault()
-        notesService.saveEdit(note).then( () => {
+        notesService.saveEdit(note).then(() => {
             this.setState({ note }),
-            this.onToggleEditModal()
-            eventBusService.emit('user-msg', {txt:'Edits Saved', type: 'success'})
+                this.onToggleEditModal()
+            eventBusService.emit('user-msg', { txt: 'Edits Saved', type: 'success' })
         })
     }
 
@@ -116,7 +115,7 @@ export class DynamicNote extends React.Component {
                 {note.type === 'note-img' && <ImgNote note={note} />}
                 {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
                 <section className="note-btns">
-                    <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/imgs/svgs/delete.svg" /></button>
+                    <button title="Delete" onClick={() => this.onDeleteNote(note.id)}><img src="assets/img/svgs/delete.svg" /></button>
                     <button title="Duplicate" onClick={() => this.onDuplicateNote(note.id)}><img src="assets/imgs/duplicate.png" /></button>
                     <button title="Edit" onClick={this.onToggleEditModal}><img src="assets/imgs/edit1.png" /></button>
                     <Link to={exportTo}><button title="Send as mail" ><img src="assets/imgs/mail-close.png" /></button></Link>

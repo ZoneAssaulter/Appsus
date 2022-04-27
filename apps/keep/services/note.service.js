@@ -17,8 +17,8 @@ export const notesService = {
 }
 
 
-const STORAGE_KEY = 'notesDB'
-const STORAGE_KEY_PINNED = 'pinnedNotesDB'
+const KEY = 'notesDB'
+const KEY_PINNED = 'pinnedDB'
 
 
 const gNotes = [
@@ -320,17 +320,17 @@ function _createNotes() {
 
 
 function _saveNotesToStorage(notes) {
-    storageService.saveToStorage(STORAGE_KEY, notes)
+    storageService.saveToStorage(KEY, notes)
 }
 
 function _loadNotesFromStorage() {
-    return storageService.loadFromStorage(STORAGE_KEY)
+    return storageService.loadFromStorage(KEY)
 }
 
 function _savePinnedNotesToStorage(notes) {
-    storageService.saveToStorage(STORAGE_KEY_PINNED, notes)
+    storageService.saveToStorage(KEY_PINNED, notes)
 }
 
 function _loadPinnedNotesFromStorage() {
-    return storageService.loadFromStorage(STORAGE_KEY_PINNED)
+    return storageService.loadFromStorage(KEY_PINNED)
 }

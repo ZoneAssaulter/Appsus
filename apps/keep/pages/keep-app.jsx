@@ -1,5 +1,5 @@
 import { notesService } from '../services/note.service.js'
-import { utilService } from '../../../util.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { eventBusService } from '../../../services/event-bus.service.js'
 
 import { DynamicNote } from '../../keep/cmps/note-dynamic.jsx'
@@ -21,7 +21,6 @@ export class KeepApp extends React.Component {
     }
 
 
-
     componentDidMount() {
         window.scrollTo(0, 0)
         this.loadNotes()
@@ -30,11 +29,9 @@ export class KeepApp extends React.Component {
         this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     }
 
-
     componentWillUnmount() {
         this.removeEventBus();
     }
-
 
     onSetTxtFilter = (title) => {
         const titleTxt = title
@@ -52,7 +49,6 @@ export class KeepApp extends React.Component {
             this.loadNotes)
     }
 
-
     searchParams = () => {
         const query = new URLSearchParams(this.props.location.search)
         const title = query.get('title')
@@ -67,7 +63,6 @@ export class KeepApp extends React.Component {
         }
     }
 
-
     loadNotes = () => {
         const { filterBy } = this.state
         notesService.query(filterBy).then(notes => {
@@ -78,7 +73,6 @@ export class KeepApp extends React.Component {
             this.setState({ pinnedNotes })
         })
     }
-
 
     toggleNewNoteModal = () => {
         this.setState({ isNewNoteModalOn: !this.state.isNewNoteModalOn })
