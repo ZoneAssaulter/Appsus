@@ -1,4 +1,5 @@
 import { notesService } from '../services/note.service.js'
+import { NoteFilter } from '../../keep/cmps/note-filter.jsx'
 // import { eventBusService } from '../services/event-bus.service.js'
 // import { utilService } from '../services/util.service.js'
 
@@ -19,6 +20,7 @@ export class KeepApp extends React.Component {
 
 
     componentDidMount() {
+        // window.scrollTo(0,0)
         this.loadNotes()
         this.searchParams()
     }
@@ -29,13 +31,16 @@ export class KeepApp extends React.Component {
     onSetTxtFilter = (title) => {
         const titleTxt = title
         this.setState((prevState) =>
-            ({ filterBy: { ...prevState.filterBy, title: titleTxt } }), this.loadNotes)
+            // console.log('filterBy from Car App', titleTxt)
+            ({ filterBy: { ...prevState.filterBy, title: titleTxt } }),
+            this.loadNotes)
     }
 
     onSetTypeFilter = (type) => {
         const filterType = type
         this.setState((prevState) =>
-            ({ filterBy: { ...prevState.filterBy, type: filterType } }), this.loadNotes)
+            ({ filterBy: { ...prevState.filterBy, type: filterType } }),
+            this.loadNotes)
     }
 
     searchParams() {
@@ -56,7 +61,6 @@ export class KeepApp extends React.Component {
         }
     }
 
-
     loadNotes = () => {
         const { filterBy } = this.state
         notesService.query(filterBy)
@@ -72,19 +76,18 @@ export class KeepApp extends React.Component {
 
 
     render() {
+        const { notes, pinnedNotes, isNewNoteModalOn, exportedMail } = this.state
+        if (!notes) return <React.Fragment></React.Fragment>
+        const notesTypes = ['all', 'txt', 'todos', 'img', 'video']
         return <section className="keep-app">
             <h1>hello KeepApp</h1>
+            <NoteFilter notesTypes={notesTypes} />
+                <button className="new-note-btn" onClick={this.toggleNewNoteModal}>Create New Note</button>
         </section>
     }
 }
 
 
-//   onSetFilter = (filterBy) => {
-//     this.setState({ filterBy }, () => {
-//       console.log('filterBy from Car App', this.state.filterBy);
-//       this.loadBooks()
-//     })
-//   }
 
 //   render() {
 //     const { books } = this.state
@@ -96,7 +99,7 @@ export class KeepApp extends React.Component {
 //           <BookAdd />
 //           <BookList books={books} />
 //         </React.Fragment>
-//       </section>
+//       </section>s
 //     )
 //   }
 // }

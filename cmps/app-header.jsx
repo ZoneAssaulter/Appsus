@@ -1,3 +1,6 @@
+
+import { eventBusService } from '../services/event-bus.service.js'
+
 const { NavLink, Link, withRouter } = ReactRouterDOM
 
 class _AppHeader extends React.Component {
