@@ -21,13 +21,13 @@ class _AppHeader extends React.Component {
             <h1>Appsus</h1>
           </Link>
           <NavLink to='/keepapp' onClick={this.onToggleAppsMenu}>
-            <div></div>
+            keepApp
           </NavLink>
           <NavLink to='/mailapp' onClick={this.onToggleAppsMenu}>
-            mail app
+            mailapp
           </NavLink>
           <NavLink to='/bookapp' onClick={this.onToggleAppsMenu}>
-            book app
+            bookapp
           </NavLink>
         </nav>
       </header>
