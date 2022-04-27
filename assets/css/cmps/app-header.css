@@ -5,3 +5,7 @@
     padding: 20px;
     background-color: lightcyan;
 }
+
+.app-header .main-nav * {
+    margin-inline-end: 10px;
+}
