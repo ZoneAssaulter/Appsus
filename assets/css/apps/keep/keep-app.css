@@ -1,0 +1,81 @@
+.keep-app{
+    font-family: lato-regular;
+    width: 400px;
+    /* height: 90vh; */
+    margin: auto;
+    background-color: rgb(252, 252, 252);
+    border-left: 1px solid rgb(219, 219, 219);
+    border-right: 1px solid rgb(219, 219, 219);
+}
+
+.keep-app h2{
+    font-family: lato-bold;
+}
+
+
+.new-note-btn{
+    text-align: center;
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    font-size: 1.5rem;
+    border: none;
+    background: unset;
+}
+
+.new-note-btn:hover{
+    color: blue;
+}
+
+
+
+.notes-list,
+.pinned-notes{
+    padding: 20px;
+    width: 380px;
+    margin: auto;
+}
+
+@media screen and (min-width: 650px){
+    .keep-app{
+        width: 620px;
+    }
+
+    .notes-list,
+    .pinned-notes{
+        width: 575px;
+        column-count: 2;
+        column-gap: 30px;
+    }
+
+}
+
+
+@media screen and (min-width: 890px){
+
+    .keep-app{
+        width: 870px;
+    }
+
+    .notes-list,
+    .pinned-notes{
+        width: 850px;
+        column-count: 3;
+        column-gap: 30px;
+    }
+}
+
+
+
+@media screen and (min-width: 1050px){
+    
+    .keep-app{
+        width: 1020px;
+    }
+
+    .notes-list,
+    .pinned-notes{
+        width: 1000px;
+        column-gap: 30px;
+    }
+}

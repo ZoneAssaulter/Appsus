@@ -1,7 +1,10 @@
 import { notesService } from '../services/note.service.js'
+import { utilService } from '../../../util.service.js'
+import { eventBusService } from '../../../services/event-bus.service.js'
+
+import { DynamicNote } from '../../keep/cmps/note-dynamic.jsx'
 import { NoteFilter } from '../../keep/cmps/note-filter.jsx'
-// import { eventBusService } from '../services/event-bus.service.js'
-// import { utilService } from '../services/util.service.js'
+import { NewNoteModal } from '../../keep/cmps/new-note-modal.jsx'
 
 
 export class KeepApp extends React.Component {
@@ -20,21 +23,27 @@ export class KeepApp extends React.Component {
 
 
     componentDidMount() {
-        // window.scrollTo(0,0)
+        window.scrollTo(0, 0)
         this.loadNotes()
         this.searchParams()
+        if (!this.state.exportedMail) this.props.history.push('/keepapp')
+        this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     }
 
-    componentWillUnmount() { }
+
+    componentWillUnmount() {
+        this.removeEventBus();
+    }
 
 
     onSetTxtFilter = (title) => {
         const titleTxt = title
         this.setState((prevState) =>
-            // console.log('filterBy from Car App', titleTxt)
             ({ filterBy: { ...prevState.filterBy, title: titleTxt } }),
             this.loadNotes)
     }
+
+    debbouncedFunc = utilService.debounce(this.onSetTxtFilter, 100)
 
     onSetTypeFilter = (type) => {
         const filterType = type
@@ -43,31 +52,33 @@ export class KeepApp extends React.Component {
             this.loadNotes)
     }
 
-    searchParams() {
+
+    searchParams = () => {
         const query = new URLSearchParams(this.props.location.search)
-        // console.log(this.props.location);
-        console.log(query);
         const title = query.get('title')
-        // console.log('title',title);
         const txt = query.get('txt')
-        // console.log('txt',txt);
         if (title || txt) {
             const exportedMail = {
                 title,
-                txt,
+                txt
             }
             this.setState({ exportedMail })
             this.setState({ isNewNoteModalOn: true })
         }
     }
 
+
     loadNotes = () => {
         const { filterBy } = this.state
-        notesService.query(filterBy)
-            .then(notes => {
-                this.setState({ notes })
-            })
+        notesService.query(filterBy).then(notes => {
+            this.setState({ notes })
+        })
+
+        notesService.getPinnedNotes().then(pinnedNotes => {
+            this.setState({ pinnedNotes })
+        })
     }
+
 
     toggleNewNoteModal = () => {
         this.setState({ isNewNoteModalOn: !this.state.isNewNoteModalOn })
@@ -79,27 +90,31 @@ export class KeepApp extends React.Component {
         const { notes, pinnedNotes, isNewNoteModalOn, exportedMail } = this.state
         if (!notes) return <React.Fragment></React.Fragment>
         const notesTypes = ['all', 'txt', 'todos', 'img', 'video']
-        return <section className="keep-app">
-            <h1>hello KeepApp</h1>
-            <NoteFilter notesTypes={notesTypes} />
+        let { type } = this.state.filterBy
+        return (
+            <section className="keep-app">
+                <NoteFilter notesTypes={notesTypes} onSetTypeFilter={this.onSetTypeFilter} currType={type} />
                 <button className="new-note-btn" onClick={this.toggleNewNoteModal}>Create New Note</button>
-        </section>
+                {isNewNoteModalOn && <NewNoteModal loadNotes={this.loadNotes}
+                    toggleNewNoteModal={this.toggleNewNoteModal} exportedMail={exportedMail} />}
+                <section className="all-notes-container">
+                    {(pinnedNotes && pinnedNotes.length > 0) &&
+                        <section className="pinned-notes-container">
+                            <section className="pinned-notes ">
+                                {pinnedNotes.map(note => {
+                                    return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
+                                })}
+                            </section>
+                            <hr />
+                        </section>}
+                    <section className="notes-list">
+                        {notes.map(note => {
+                            return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
+                        })}
+                    </section>
+                </section>
+
+            </section>
+        )
     }
 }
-
-
-
-//   render() {
-//     const { books } = this.state
-//     return (
-//       <section className='book-app '>
-//         <React.Fragment>
-//           <h2>Home Sweet Home</h2>
-//           <BookFilter onSetFilter={this.onSetFilter} />
-//           <BookAdd />
-//           <BookList books={books} />
-//         </React.Fragment>
-//       </section>s
-//     )
-//   }
-// }

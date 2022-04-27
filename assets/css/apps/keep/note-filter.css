@@ -1,0 +1,34 @@
+.filter-by {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+    margin: 40px auto;
+}
+
+.filter-by h2 {
+    font-size: 2rem;
+}
+
+.filter-by .filter-btns {
+    display: flex;
+    gap: 5px;
+}
+
+.filter-by .filter-btns button {
+    width: 50px;
+    background: unset;
+    border: none;
+}
+
+.filter-by .filter-btns .active {
+    box-shadow: 0px 2px 0px #adadad;
+}
+
+
+@media screen and (min-width: 650px) {
+    .filter-by {
+        flex-direction: row;
+        gap: unset;
+    }
+}
