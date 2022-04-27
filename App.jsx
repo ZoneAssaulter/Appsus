@@ -10,8 +10,7 @@ export function App() {
         {/* <AppHeader/> */}
         <main>
           <Switch>
-              <Home />
-            {/* <Route component={Home} path='/' /> */}
+            <Route component={Home} path='/' />
           </Switch>
         </main>
       </section>
