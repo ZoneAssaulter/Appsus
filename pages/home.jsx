@@ -1,15 +1,16 @@
-
-
 export class Home extends React.Component {
+  state = {
+   
+  }
 
-    state = {}
+  render() {
 
-    render() {
-
-        return (
-            <section className="home">
-                <h1>Home</h1>
-            </section>
-        )
-    }
+    return (
+      <section className='home'>
+        <div className='nav-apps'>
+         <p>links</p>
+        </div>
+      </section>
+    )
+  }
 }
