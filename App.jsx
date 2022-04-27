@@ -1,8 +1,8 @@
 import { Home } from './pages/home.jsx'
 
-import {BookApp} from './pages/book-app.jsx'
-import { MailApp } from './pages/mail-app.jsx'
-import { KeepApp } from './pages/keep-app.jsx'
+import {BookApp} from './apps/book/pages/book-app.jsx'
+import { MailApp } from './apps/mail/pages/mail-app.jsx'
+import { KeepApp } from './apps/keep/pages/keep-app.jsx'
 
 import { AppHeader } from './cmps/app-header.jsx'
 
