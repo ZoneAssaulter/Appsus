@@ -3,6 +3,9 @@ import { utilService } from '../../../services/util.service.js'
 import { EmailCompose } from '../cmps/email-compose.jsx'
 import { emailService } from '../services/email.service.js'
 
+import {EmailDetails} from '../cmps/email-details.jsx'
+import { EmailList } from '../cmps/email-list.jsx'
+
 export class MailApp extends React.Component {
   state = {
     emails: [],
@@ -66,6 +69,49 @@ export class MailApp extends React.Component {
     this.setState({ isShowCompose: !this.state.isShowCompose })
   }
 
+  onExpandEmail = (ev, emailId) => {
+    if (ev) ev.stopPropagation()
+    this.props.history.push(this.props.location.pathname + '/' + emailId)
+  }
+
+  onReplyEmail = (ev, emailId) => {
+    if (ev) ev.stopPropagation()
+    this.onExpandEmail(ev, emailId)
+    this.setState({ isShowCompose: true })
+  }
+
+  onRemoveEmail = (ev, emailId) => {
+    if (ev) ev.stopPropagation()
+    emailService.removeEmail(emailId).then((email) => {
+      this.loadEmails()
+      eventBusService.emit('user-msg', {
+        txt: 'The mail moved to trash',
+        type: '',
+      })
+      this.props.history.push('/mailapp')
+    })
+  }
+
+  onToggleField = (ev, emailId, field) => {
+    if (ev) ev.stopPropagation()
+    emailService.updateEmail(emailId, field).then((email) => {
+      const message = this.getUserMessage(field, email[field])
+      eventBusService.emit('user-msg', { txt: message, type: 'success' })
+      this.loadEmails()
+    })
+  }
+
+  onExportEmailToNote = (email) => {
+    this.props.history.push(`/keepapp?title=${email.subject}&txt=${email.body}`)
+  }
+
+  onSetReadEmail = (email) => {
+    emailService.updateEmailToRead(email.id).then((email)=> {
+      eventBusService.emit('user-msg', {txt: 'Mark as read', type: 'success'})
+      this.loadEmails()
+    })
+  }
+
   render() {
     const { emails, criteria, isShowCompose, noteEmail } = this.state
     const { emailId } = this.props.match.params
@@ -84,6 +130,22 @@ export class MailApp extends React.Component {
             />
           )}
         </aside>
+        <div className='email-container'>
+          {!emailId ? <EmailList emails={emails}
+                                  loadEmails={this.loadEmails}
+                                  onExpandEmail={this.onExpandEmail}
+                                  onRemoveEmail={this.onRemoveEmail}
+                                  onReplyEmail={this.onReplyEmail}
+                                  onToggleField={this.onToggleField}
+                                  onSetReadEmail={this.onSetReadEmail} />
+          :<EmailDetails
+            emailId={emailId}
+            onReplyEmail={this.onReplyEmail}
+            onRemoveEmail={this.onRemoveEmail}
+            onToggleField={this.onToggleField}
+            onExportEmailToNote={this.onExportEmailToNote}
+          />}
+        </div>
       </section>
     )
   }
