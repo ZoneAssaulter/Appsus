@@ -1,0 +1,45 @@
+.color-container {
+    position: relative;
+}
+
+.color-menu {
+    display: flex;
+    position: absolute;
+    bottom: 5px;
+    background: white;
+    padding: 5px;
+    width: 200px;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.color-menu .color-input {
+    width: 20px;
+    height: 20px;
+    border-radius: 30%;
+    cursor: pointer;
+}
+
+.color-menu .color-input:hover {
+    transform: scale(1.1);
+}
+
+@media screen and (min-width: 650px) {
+    .color-menu {
+        left: -5%;
+        width: 190px;
+    }
+}
+
+@media screen and (min-width: 890px) {
+    .color-menu {
+        left: unset;
+    }
+}
+
+@media screen and (min-width: 1050px) {
+    .color-menu {
+        width: 200px;
+        left: unset;
+    }
+}

@@ -17,7 +17,8 @@ export class NewVideoNote extends React.Component {
     handleChange = ({ target }) => {
         const field = target.name
         const value = target.value
-        this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }))
+        this.setState((prevState) =>
+            ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }))
     }
 
     render() {
@@ -27,14 +28,17 @@ export class NewVideoNote extends React.Component {
 
         return (
             <section className="new-note-info">
-                <form className="new-note-form" onSubmit={() => onSaveNote(note)}>
+                <form className="new-note-form"
+                    onSubmit={() => onSaveNote(note)}>
                     <label htmlFor="title">Enter Note Title </label>
                     <input type="text" id="title" name='title' value={title}
-                        placeholder="Enter title here" onChange={this.handleChange} />
+                        placeholder="Enter title here"
+                        onChange={this.handleChange} />
 
-                    <label htmlFor="url">Enter Your Video URL </label>
+                    <label htmlFor="url">Enter Video URL </label>
                     <input type="text" id="url" name='url' value={url}
-                        placeholder="Enter URL here" onChange={this.handleChange} />
+                        placeholder="Enter URL here"
+                        onChange={this.handleChange} />
                     <button className="save-new-note-btn">Save Note</button>
                 </form>
             </section>

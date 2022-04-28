@@ -1,13 +1,17 @@
-
-
-
-
 @import './basics/base.css';
 
 @import './cmps/app-header.css';
 
 
-@import '././apps/keep/keep-app.css';
-/* @import '././apps/keep/note-filter.css'; */
 
 
+/* Keep */
+@import "./apps/keep/keep-app.css";
+@import "./apps/keep/dynamic-note.css";
+@import "./apps/keep/pick-note-color.css";
+@import "./apps/keep/new-note-modal.css";
+/* @import "./apps/keep/new-note-form.css"; */
+@import "./apps/keep/note-todo.css";
+@import "./apps/keep/note-filter.css";
+/* @import "./apps/keep/edit-note-modal.css"; */
+@import "./apps/keep/edit-todos-note-modal.css";

@@ -12,15 +12,15 @@ export class EditNoteModal extends React.Component {
         this.setState({ note })
     }
 
-
-
-
+    // : handleChange
     handleChange = ({ target }) => {
         const field = target.name
         const value = target.value
-        this.setState((prevState) => ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }))
+        this.setState((prevState) =>
+            ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }))
     }
 
+    // : render-object:txt/img/videio/title(input)
     render() {
         const { note } = this.state
         if (!note) return <React.Fragment></React.Fragment>
@@ -31,31 +31,33 @@ export class EditNoteModal extends React.Component {
                 <section className="edit-modal">
                     <section className="edit-notes-form">
                         {note.type !== 'note-todos' &&
-                            <form onSubmit={() => this.props.onSaveEdit(event, note)}>
-                                <label htmlFor="title">Edit Note Title </label>
-                                <input type="text" id="title" name='title' value={info.title}
-                                    onChange={this.handleChange} />
+                            <form onSubmit={() => this.props.onSaveEdit(note)}>
+
+                                <label htmlFor="title">Edit Note Title
+                                    <input type="text" id="title" name='title'  value={info.title}
+                                        onChange={this.handleChange} />
+                                </label>
 
                                 {note.type === 'note-txt' &&
                                     <React.Fragment>
-                                        <textarea name="txt" id="txt" cols="30" rows="10"
-                                            value={info.txt} onChange={this.handleChange}></textarea>
+                                        <textarea name="txt" id="txt" cols="30" rows="10" 
+                                            onChange={this.handleChange}></textarea>
                                     </React.Fragment>}
 
                                 {note.type === 'note-img' &&
                                     <React.Fragment>
-                                        <label htmlFor="url">Edit Your Image URL </label>
+                                        <label htmlFor="url">Edit Image URL </label>
                                         <img src={info.url} />
-                                        <input type="text" id="url" name='url' value={info.url} onChange={this.handleChange} />
+                                        <input type="text" id="url" name='url' 
+                                            onChange={this.handleChange} />
                                     </React.Fragment>}
 
                                 {note.type === 'note-video' &&
                                     <React.Fragment>
-                                        <label htmlFor="url">Edit Your Video URL </label>
-                                        <input type="text" id="url" name='url' value={info.url} onChange={this.handleChange} />
+                                        <label htmlFor="url">Edit Video URL </label>
+                                        <input type="text" id="url" name='url'
+                                            onChange={this.handleChange} />
                                     </React.Fragment>}
-
-
 
                                 <button className="save-edit-btn">Save Edit</button>
                             </form>
@@ -67,7 +69,10 @@ export class EditNoteModal extends React.Component {
                             <EditTodosNote note={note} onSaveEdit={this.props.onSaveEdit} />
                         </React.Fragment>}
 
-                    <button className="close-modal-btn" onClick={() => onToggleEditModal()}>x</button>
+                    <button
+                        className="close-modal-btn" onClick={() => onToggleEditModal()}>x
+                    </button>
+
                 </section>
             </section>
         )

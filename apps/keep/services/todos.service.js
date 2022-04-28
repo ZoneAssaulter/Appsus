@@ -7,28 +7,28 @@ export const todosService = {
     updateTodosEdit
 }
 
-function updateTodosEdit(note){
+function updateTodosEdit(note) {
     let notes = notesService._loadNotesFromStorage()
     const noteId = note.id
     const noteIdx = notes.findIndex(note => note.id === noteId)
-    notes[noteIdx ] = note
+    notes[noteIdx] = note
     notesService._saveNotesToStorage(notes)
     return Promise.resolve(note)
 }
 
-function deleteTodo(noteId,todoId){
+function deleteTodo(noteId, todoId) {
     let notes = notesService._loadNotesFromStorage()
     let note = notes.find(note => note.id === noteId)
     let todoIdx = note.info.todos.findIndex(todo => todo.id === todoId)
-    note.info.todos.splice(todoIdx,1)
+    note.info.todos.splice(todoIdx, 1)
     notesService._saveNotesToStorage(notes)
     return Promise.resolve(note)
 }
 
-function addTodo(todo,noteId){
+function addTodo(todo, noteId) {
     let notes = notesService._loadNotesFromStorage()
     let note = notes.find(note => note.id === noteId)
-    note.info.todos.push({id: utilService.makeId(), txt: todo, doneAt: null})
+    note.info.todos.push({ id: utilService.makeId(), txt: todo, doneAt: null })
     notesService._saveNotesToStorage(notes)
     return Promise.resolve(note)
 }
