@@ -70,7 +70,7 @@ export class DynamicNote extends React.Component {
             })
     }
     // :(togglePin) get from  notesService enf get loadNotes
-    
+
     // :(toggleColor) setState = state if is not true
     onToggleColorMenu = () => {
         this.setState({ isColorMenuOn: !this.state.isColorMenuOn })
@@ -92,45 +92,21 @@ export class DynamicNote extends React.Component {
             })
     }
 
-    // todo: switch/case for (exportEmail)
-    onExportNoteToEmail = (note) => {
-        const subject = (note.info.title) ? note.info.title : 'no subject'
-        let body = 'no body'
-        switch (note.type) {
-            case 'note-txt':
-                body = note.info.txt
-                break;
-            case 'note-video':
-                body = note.info.url
-                break;
-            case 'note-img':
-                body = note.info.url
-                break;
-            case 'note-todos':
-                const todosTxts = note.info.todos.map(todo => todo.txt);
-                body = 'Todos: \n• ' + todosTxts.join('\n* ');
-                break;
-        }
-        return `/mailapp?subject=${subject}&body=${body}`
-    }
-
+    // todo:(funcExportEmail)=switch/case for (exportEmail) to conect to email
 
     // todo: get funcExportEmail end send us to page email ehite button
     // after we fge from this.....
     // todo: get from pages TxtNote/ImgNot/TodosNote/TxtNote
+
     render() {
         const { note, isColorMenuOn, isEditModalOn } = this.state
-        // {console.log('note',note)}
         if (!note) return <React.Fragment></React.Fragment>
-        // const { isPinned } = note
-        // {console.log('isPinned',isPinned)}
         return (
-            <section className="note-dynamic" >
+            <section className="note-dynamic" style={{ backgroundColor: note.style.backgroundColor }} >
                 {note.type === 'note-txt' && <TxtNote note={note} />}
                 {note.type === 'note-video' && <VideoNote note={note} />}
                 {note.type === 'note-img' && <ImgNote note={note} />}
-                {note.type === 'note-todos' &&
-                    <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
+                {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
 
                 <section className="note-btns">
                     <button title="Delete" onClick={() =>
@@ -147,14 +123,11 @@ export class DynamicNote extends React.Component {
                         <img src="assets/img/icons-keep/edit/edit1.png" />
                     </button>
 
-                    {/* here todo1 */}
-                   
-
                     <button title="Change color" onClick={() =>
                         this.onToggleColorMenu(note.id)}>
                         <img src="assets/img/icons-keep/change-color.png" />
                     </button>
-                    
+
                     {isColorMenuOn && <PickNoteColor noteId={note.id}
                         onChangeBgc={this.onChangeBgc} />}
                 </section>
@@ -165,4 +138,3 @@ export class DynamicNote extends React.Component {
         )
     }
 }
-// style={{ backgroundColor: note.style.backgroundColor }}

@@ -12,7 +12,6 @@ export class EditNoteModal extends React.Component {
         this.setState({ note })
     }
 
-    // : handleChange
     handleChange = ({ target }) => {
         const field = target.name
         const value = target.value
@@ -20,7 +19,6 @@ export class EditNoteModal extends React.Component {
             ({ note: { ...prevState.note, info: { ...prevState.note.info, [field]: value } } }))
     }
 
-    // : render-object:txt/img/videio/title(input)
     render() {
         const { note } = this.state
         if (!note) return <React.Fragment></React.Fragment>
@@ -31,7 +29,7 @@ export class EditNoteModal extends React.Component {
                 <section className="edit-modal">
                     <section className="edit-notes-form">
                         {note.type !== 'note-todos' &&
-                            <form onSubmit={() => this.props.onSaveEdit(note)}>
+                            <form onSubmit={() => this.props.onSaveEdit(event,note)}>
 
                                 <label htmlFor="title">Edit Note Title
                                     <input type="text" id="title" name='title'  value={info.title}

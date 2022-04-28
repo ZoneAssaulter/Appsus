@@ -80,8 +80,7 @@ export class KeepApp extends React.Component {
         notesService.query(filterBy).then(notes => {
             this.setState({ notes })
         })
-
-        //11
+        // 11
     }
 
     // :(toggleNewNoteModal)chek if heve(state)isNewNoteModalOn
@@ -90,7 +89,6 @@ export class KeepApp extends React.Component {
     }
 
 
-    //:(after get(state))render page(NoteFilter)(DynamicNote)
     render() {
         const { notes, pinnedNotes, isNewNoteModalOn, exportedMail } = this.state
         if (!notes) return <React.Fragment></React.Fragment>
@@ -108,8 +106,6 @@ export class KeepApp extends React.Component {
                     /* todo: render in toggleNewNoteModal (exportedMail) DONT forget to take from this.state */
                     />
                 }
-
-
                 <section className="all-notes-container">
                     {(pinnedNotes && pinnedNotes.length > 0) &&
                         <section className="pinned-notes-container">
