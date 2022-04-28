@@ -1,6 +1,5 @@
 
 
-// todo: function note img end only retern 
 export function ImgNote({ note }) {
 
     return (

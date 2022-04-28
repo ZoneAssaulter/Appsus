@@ -1,9 +1,7 @@
 .keep-app {
-    width: 400px;
+    width: 430px;
     margin: auto;
-    background: rgb(2, 0, 36);
-    background: rgb(2, 0, 36);
-    background: rgb(2, 0, 36);
+    border-radius: 20px;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(57, 57, 71, 1) 0%, rgba(34, 45, 54, 1) 0%, rgba(49, 83, 125, 1) 0%, rgba(66, 83, 128, 1) 0%, rgba(72, 117, 148, 1) 100%);
 }
 
@@ -12,13 +10,13 @@
     display: block;
     width: 200px;
     margin: 10px auto;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     border: none;
     background: unset;
 }
 
 .btn-new-note:hover {
-    color: rgb(40, 40, 247);
+    color: rgb(78, 66, 66);
 }
 
 .notes-list,
@@ -42,7 +40,6 @@
 
 }
 
-
 @media screen and (min-width: 890px) {
 
     .keep-app {
@@ -56,7 +53,6 @@
         column-gap: 30px;
     }
 }
-
 
 @media screen and (min-width: 1050px) {
 

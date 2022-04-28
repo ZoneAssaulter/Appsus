@@ -25,10 +25,10 @@ function deleteTodo(noteId, todoId) {
     return Promise.resolve(note)
 }
 
-function addTodo(todo, noteId) {
+function addTodo(todo,noteId){
     let notes = notesService._loadNotesFromStorage()
     let note = notes.find(note => note.id === noteId)
-    note.info.todos.push({ id: utilService.makeId(), txt: todo, doneAt: null })
+    note.info.todos.push({id: utilService.makeId(), txt: todo, doneAt: null})
     notesService._saveNotesToStorage(notes)
     return Promise.resolve(note)
 }

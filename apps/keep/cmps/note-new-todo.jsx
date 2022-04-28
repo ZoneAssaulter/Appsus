@@ -7,9 +7,6 @@ export class NewTodosNote extends React.Component {
             info: {
                 title: '',
                 todos: ''
-            },
-            style: {
-                backgroundColor: '#B983FF'
             }
         }
     }
@@ -34,7 +31,7 @@ export class NewTodosNote extends React.Component {
         return (
             <section className="new-note-info">
                 <form className="new-note-form"
-                    onSubmit={() => onSaveNote(note)}>
+                    onSubmit={() => onSaveNote(event,note)}>
                     <label htmlFor="title">Enter Note Target </label>
                     <input type="text" id="title" name='title' value={title}
                         placeholder="Enter title here" onChange={this.handleChange} />

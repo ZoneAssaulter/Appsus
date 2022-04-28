@@ -7,9 +7,6 @@ export class NewImgNote extends React.Component {
             info: {
                 url: '',
                 title: ''
-            },
-            style: {
-                backgroundColor: '#32AFA9'
             }
         }
     }

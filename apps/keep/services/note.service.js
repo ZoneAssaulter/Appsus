@@ -8,12 +8,10 @@ export const notesService = {
     deleteNote,
     duplicateNote,
     changeBgc,
-    // togglePin,
     toggleTodo,
     saveEdit,
     _saveNotesToStorage,
     _loadNotesFromStorage,
-    // getPinnedNotes
 }
 
 
@@ -28,10 +26,10 @@ const gNotes = [
         isPinned: false,
         info: {
             url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/IMG_Academy_Logo.svg/1200px-IMG_Academy_Logo.svg.png",
-            title: ''
+            title: 'choose title'
         },
         style: {
-            backgroundColor: "#CDF2CA"
+            backgroundColor: "green"
         }
     },
 
@@ -40,7 +38,7 @@ const gNotes = [
         type: "note-todos",
         isPinned: false,
         info: {
-            title: '',
+            title: 'choose title',
             todos: [
                 {
                     id: utilService.makeId(),
@@ -60,7 +58,7 @@ const gNotes = [
             ]
         },
         style: {
-            backgroundColor: "#B983FF"
+            backgroundColor: "pink"
         }
     },
 
@@ -69,11 +67,11 @@ const gNotes = [
         type: 'note-txt',
         isPinned: false,
         info: {
-            title: '',
-            txt: ''
+            title: 'choose title',
+            txt: 'choose text'
         },
         style: {
-            backgroundColor: "#B5EAEA"
+            backgroundColor: "yellow"
         }
     },
 
@@ -83,7 +81,7 @@ const gNotes = [
         isPinned: false,
         info: {
             url: 'https://www.youtube.com/embed/dauW62xmwZQ',
-            title: ''
+            title: 'choose title'
         },
         style: {
             backgroundColor: '#B983FF'

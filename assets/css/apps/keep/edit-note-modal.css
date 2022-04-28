@@ -1,0 +1,85 @@
+.edit-todos-note .todo-to-edit{
+    margin-bottom: 10px;
+}
+
+.edit-todos-note .todo-to-edit .remove-todo-btn{
+    border: none;
+    background: unset;
+    font-size: 1.2rem;
+}
+
+.edit-modal-container{
+    position: fixed; 
+    z-index: 6; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+}
+
+.edit-modal{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color:white;
+    margin: 5% auto 15% auto; 
+    width: 280px;
+    height: 360px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.edit-modal .close-modal-btn{
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.edit-modal .close-modal-btn:hover{
+    transform: scale(1.1);
+}
+
+.edit-notes-form{
+    margin-top: 40px;
+}
+
+.edit-modal .save-edit-btn{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.edit-notes-form form{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    gap: 20px;
+}
+
+.edit-notes-form form img{
+    width: 100px;
+    margin: auto;
+}
+
+.edit-notes-form form textarea{
+    max-width: 250px;
+    max-height: 200px;
+}
+
+@media screen and (min-width: 650px){
+
+    .edit-modal{
+        width: 300px;
+        height: 350px;
+    }
+
+    .edit-notes-form form textarea{
+        max-height: 250px;
+    }
+}

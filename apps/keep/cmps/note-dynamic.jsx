@@ -94,10 +94,7 @@ export class DynamicNote extends React.Component {
 
     // todo:(funcExportEmail)=switch/case for (exportEmail) to conect to email
 
-    // todo: get funcExportEmail end send us to page email ehite button
-    // after we fge from this.....
-    // todo: get from pages TxtNote/ImgNot/TodosNote/TxtNote
-
+    
     render() {
         const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
