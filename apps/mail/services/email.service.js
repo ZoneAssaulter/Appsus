@@ -6,6 +6,9 @@ export const emailService = {
   saveEmail,
   getEmailById,
   updateEmailToRead,
+  getAmountEmailsByFilter,
+  removeEmail,
+  updateEmail,
 }
 
 const STORAGE_KEY = 'mailDB'
@@ -60,7 +63,7 @@ let gEmails = [
     In the 14-years since he has been on the station, he has accumulated flight pay and interest amounting to almost $ 15,000,000 American Dollars. This is held in a trust at the Lagos National Savings and Trust Association. If we can obtain access to this money, we can place a down payment with the Russian Space Authorities for a Soyuz return flight to bring him back to Earth. I am told this will cost $ 3,000,000 American Dollars. In order to access the his trust fund we need your assistance.
     Consequently, my colleagues and I are willing to transfer the total amount to your account or subsequent disbursement, since we as civil servants are prohibited by the Code of Conduct Bureau (Civil Service Laws) from opening and/ or operating foreign accounts in our names.
     Needless to say, the trust reposed on you at this juncture is enormous. In return, we have agreed to offer you 20 percent of the transferred sum, while 10 percent shall be set aside for incidental expenses (internal and external) between the parties in the course of the transaction. You will be mandated to remit the balance 70 percent to other accounts in due course.`,
-    status: 'spam',
+    status: 'trash',
     isRead: false,
     isStarred: true,
     sentAt: 1218195919,
@@ -88,9 +91,7 @@ const loggedUser = {
 _createEmails()
 
 function query(criteria = null, sort = null) {
-  console.log('querying...')
   const emails = _loadEmailsFromStorage()
-  console.log('loading emails inside of query:', emails)
   const allUserEmails = _getAllUserEmails(emails)
   if (!criteria) return Promise.resolve(allUserEmails)
   const filteredEmails = _getFilteredEmails(allUserEmails, criteria)
@@ -121,6 +122,35 @@ function updateEmailToRead(emailId) {
   let emails = _loadEmailsFromStorage()
   const email = emails.find((email) => email.id === emailId)
   email['isRead'] = true
+  _saveEmailsToStorage(emails)
+  return Promise.resolve(email)
+}
+
+function getAmountEmailsByFilter(field, value, isRead = undefined) {
+  const emails = _loadEmailsFromStorage()
+  const userEmails = _getAllUserEmails(emails)
+  const amountEmail = userEmails.filter((email) => {
+    const isReadFilter = isRead === undefined || email.isRead === isRead
+    return email[field] === value && isReadFilter
+  }).length
+  return amountEmail
+}
+
+function removeEmail(emailId) {
+  let emails = _loadEmailsFromStorage()
+  const email = emails.find((email) => email.id === emailId)
+  if (email.status === 'draft' || email.status === 'trash')
+    emails = emails.filter((email) => email.id !== emailId)
+  else email.status = 'trash'
+  _saveEmailsToStorage(emails)
+  return Promise.resolve(email)
+}
+
+function updateEmail(emailId, field){
+  let emails = _loadEmailsFromStorage()
+  const email = emails.find((email) => email.id === emailId)
+  const value = email[field]
+  email[field] = !value
   _saveEmailsToStorage(emails)
   return Promise.resolve(email)
 }
@@ -197,8 +227,7 @@ function _getFilteredEmails(emails, criteria) {
   let { status } = criteria
   const toUserEmails = _getUserEmails(emails, 'to')
   const fromUserEmails = _getUserEmails(emails, 'from')
-  if (status === 'trash' || status === 'spam')
-    return _getCorrectEmails(emails, criteria)
+  if (status === 'trash') return _getCorrectEmails(emails, criteria)
   else if (status === 'inbox') return _getCorrectEmails(toUserEmails, criteria)
   else if (status === 'sent' || status === 'draft')
     return _getCorrectEmails(fromUserEmails, criteria)

@@ -3,8 +3,10 @@ import { utilService } from '../../../services/util.service.js'
 import { EmailCompose } from '../cmps/email-compose.jsx'
 import { emailService } from '../services/email.service.js'
 
-import {EmailDetails} from '../cmps/email-details.jsx'
+import { EmailDetails } from '../cmps/email-details.jsx'
 import { EmailList } from '../cmps/email-list.jsx'
+import { EmailFolderList } from '../cmps/email-folder-list.jsx'
+import { EmailFilter } from '../cmps/email-filter.jsx'
 
 export class MailApp extends React.Component {
   state = {
@@ -55,11 +57,8 @@ export class MailApp extends React.Component {
   debouncedFunc = utilService.debounce(this.onSetCriteria, 10)
 
   loadEmails = () => {
-    console.log('loading emails')
     const { criteria, sort } = this.state
-    console.log('criteria:', criteria, 'sort:', sort)
     emailService.query(criteria, sort).then((emails) => {
-      console.log('query().then')
       this.setState({ emails })
       this.props.history.push('/mailapp')
     })
@@ -106,10 +105,31 @@ export class MailApp extends React.Component {
   }
 
   onSetReadEmail = (email) => {
-    emailService.updateEmailToRead(email.id).then((email)=> {
-      eventBusService.emit('user-msg', {txt: 'Mark as read', type: 'success'})
+    emailService.updateEmailToRead(email.id).then((email) => {
+      eventBusService.emit('user-msg', { txt: 'Mark as read', type: 'success' })
       this.loadEmails()
     })
+  }
+
+  onSetSort = ({ target }) => {
+    const sortBy = target.name
+    const sort = { type: sortBy, order: 1 }
+    this.setState((prevState) => {
+      if (prevState.sort.type === sortBy) sort.order = prevState.sort.order * -1
+      return { sort }
+    }, this.loadEmails)
+  }
+
+  onSetCriteria = (newCriteria) => {
+    this.setState(
+      (prevState) => ({ criteria: { ...prevState.criteria, ...newCriteria } }),
+      this.loadEmails
+    )
+  }
+
+  getUserMessage = (field, value) => {
+    if(field === 'isRead') return `Mark as ${value === true ? 'read' : 'unread'}`
+    else return `Mark as ${value === true ? 'starred' : 'unstarred'}`
   }
 
   render() {
@@ -129,22 +149,32 @@ export class MailApp extends React.Component {
               noteEmail={noteEmail}
             />
           )}
+          <EmailFolderList
+            onSetCriteria={this.onSetCriteria}
+            activeStatus={criteria.status}
+          />
         </aside>
         <div className='email-container'>
-          {!emailId ? <EmailList emails={emails}
-                                  loadEmails={this.loadEmails}
-                                  onExpandEmail={this.onExpandEmail}
-                                  onRemoveEmail={this.onRemoveEmail}
-                                  onReplyEmail={this.onReplyEmail}
-                                  onToggleField={this.onToggleField}
-                                  onSetReadEmail={this.onSetReadEmail} />
-          :<EmailDetails
-            emailId={emailId}
-            onReplyEmail={this.onReplyEmail}
-            onRemoveEmail={this.onRemoveEmail}
-            onToggleField={this.onToggleField}
-            onExportEmailToNote={this.onExportEmailToNote}
-          />}
+          {/* <EmailFilter onSetCriteria={this.onSetCriteria} onSetSort={this.onSetSort} /> */}
+          {!emailId ? (
+            <EmailList
+              emails={emails}
+              loadEmails={this.loadEmails}
+              onExpandEmail={this.onExpandEmail}
+              onRemoveEmail={this.onRemoveEmail}
+              onReplyEmail={this.onReplyEmail}
+              onToggleField={this.onToggleField}
+              onSetReadEmail={this.onSetReadEmail}
+            />
+          ) : (
+            <EmailDetails
+              emailId={emailId}
+              onReplyEmail={this.onReplyEmail}
+              onRemoveEmail={this.onRemoveEmail}
+              onToggleField={this.onToggleField}
+              onExportEmailToNote={this.onExportEmailToNote}
+            />
+          )}
         </div>
       </section>
     )
