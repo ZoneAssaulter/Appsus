@@ -1,15 +1,20 @@
 @import './basics/base.css';
+@import './basics/fonts.css';
 
+/* Home Page */
 @import './cmps/app-header.css';
-
+@import './cmps/home.css';
+@import './cmps/user-msg.css';
+@import './cmps/long-txt.css';
+@import './cmps/nav-to-app.css';
 
 
 
 /* Keep */
-@import "./apps/keep/keep-app.css";
-@import "./apps/keep/dynamic-note.css";
-@import "./apps/keep/pick-note-color.css";
-@import "./apps/keep/new-note-modal.css";
+@import './apps/keep/keep-app.css';
+@import './apps/keep/dynamic-note.css';
+@import './apps/keep/pick-note-color.css';
+@import './apps/keep/new-note-modal.css';
 /* @import "./apps/keep/new-note-form.css"; */
 @import "./apps/keep/note-todo.css";
 @import "./apps/keep/note-filter.css";

@@ -77,7 +77,7 @@ class _AppHeader extends React.Component {
             </NavLink>
             <NavLink to='/mailapp' onClick={this.onToggleAppsMenu}>
               <div className='link-container'>
-                <img src='assets/img/mail.png' />
+                <img src='assets/img/mail.jpg' />
                 <span>Mail</span>
               </div>
             </NavLink>

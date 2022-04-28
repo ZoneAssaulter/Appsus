@@ -22,9 +22,9 @@ export class Home extends React.Component {
       const {book, keep, mail} = this.state.apps
     return (
       <section className="home">
-          <img className="home-image" src="assets/img/desk-image.webp"/>
+          <img className="home-image hero" src="assets/img/desk-image.webp"/>
         <div className="nav-apps">
-          <NavToApp app={book} />
+          <NavToApp className="first-child" app={book} />
           <NavToApp app={keep} />
           <NavToApp app={mail} />
         </div>

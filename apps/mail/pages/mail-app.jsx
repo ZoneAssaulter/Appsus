@@ -155,7 +155,7 @@ export class MailApp extends React.Component {
           />
         </aside>
         <div className='email-container'>
-          {/* <EmailFilter onSetCriteria={this.onSetCriteria} onSetSort={this.onSetSort} /> */}
+          <EmailFilter onSetCriteria={this.onSetCriteria} onSetSort={this.onSetSort} />
           {!emailId ? (
             <EmailList
               emails={emails}
