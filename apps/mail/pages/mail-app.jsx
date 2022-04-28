@@ -1,5 +1,6 @@
 import { eventBusService } from '../../../services/event-bus.service.js'
 import { utilService } from '../../../services/util.service.js'
+import { EmailCompose } from '../cmps/email-compose.jsx'
 import { emailService } from '../services/email.service.js'
 
 export class MailApp extends React.Component {
@@ -61,13 +62,27 @@ export class MailApp extends React.Component {
     })
   }
 
+  onToggleCompose = () => {
+    this.setState({ isShowCompose: !this.state.isShowCompose })
+  }
+
   render() {
+    const { emails, criteria, isShowCompose, noteEmail } = this.state
+    const { emailId } = this.props.match.params
     return (
       <section className='mail-app'>
         <aside className='aside-container'>
           <button className='compose-btn' onClick={this.onToggleCompose}>
             <img src='./assets/img/compose-plus.png' />
           </button>
+          {isShowCompose && (
+            <EmailCompose
+              onToggleCompose={this.onToggleCompose}
+              loadEmails={this.loadEmails}
+              emailId={emailId}
+              noteEmail={noteEmail}
+            />
+          )}
         </aside>
       </section>
     )

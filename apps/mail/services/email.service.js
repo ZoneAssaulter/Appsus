@@ -3,7 +3,8 @@ import { storageService } from '../../../services/storage.service.js'
 
 export const emailService = {
   query,
-  testFunc,
+  // testFunc,
+  saveEmail,
 }
 
 const STORAGE_KEY = 'mailDB'
@@ -85,12 +86,12 @@ const loggedUser = {
 
 _createEmails()
 
-function testFunc(){
-    console.log('test is complete!')
-}
+// function testFunc(){
+//     console.log('test is complete!')
+// }
 
 function query(criteria = null, sort = null) {
-    console.log('querying...')
+  console.log('querying...')
   const emails = _loadEmailsFromStorage()
   console.log('loading emails inside of query:', emails)
   const allUserEmails = _getAllUserEmails(emails)
@@ -105,6 +106,12 @@ function query(criteria = null, sort = null) {
     )
   }
   return Promise.resolve(filteredEmails)
+}
+
+function saveEmail(emailToSave, status) {
+  return emailToSave.id
+    ? _updateEmail(emailToSave)
+    : _addEmail(emailToSave, status)
 }
 
 function _createEmails() {
@@ -141,7 +148,7 @@ function _updateEmail(emailToSave) {
   const emails = _loadEmailsFromStorage()
   const emailIdx = emails.findIndex((email) => email.id === emailToSave.id)
   emails[emailIdx] = _createEmail(emailToSave, 'sent', emailToSave.id)
-  _saveEmailsToStorage()
+  _saveEmailsToStorage(emails)
   return Promise.resolve()
 }
 
