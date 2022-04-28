@@ -8,12 +8,12 @@ export const notesService = {
     deleteNote,
     duplicateNote,
     changeBgc,
-    togglePin,
+    // togglePin,
     toggleTodo,
     saveEdit,
     _saveNotesToStorage,
     _loadNotesFromStorage,
-    getPinnedNotes
+    // getPinnedNotes
 }
 
 
@@ -24,51 +24,11 @@ const KEY_PINNED = 'pinnedDB'
 const gNotes = [
     {
         id: utilService.makeId(),
-        type: 'note-txt',
-        isPinned: false,
-        info: {
-            title: 'Final Sprint - 18.1! ',
-            txt: ''
-        },
-        style: {
-            backgroundColor: "#B5EAEA"
-        }
-    },
-
-    {
-        id: utilService.makeId(),
-        type: 'note-video',
-        isPinned: false,
-        info: {
-            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
-            title: 'Waking up on a sprint day'
-        },
-        style: {
-            backgroundColor: '#CDF2CA'
-        }
-    },
-
-    {
-        id: utilService.makeId(),
-        type: 'note-txt',
-        isPinned: false,
-        info: {
-            title: '',
-            txt: `Why did the programmer quit his job?
-            Because he didn't get arrays`
-        },
-        style: {
-            backgroundColor: "#CC7351"
-        }
-    },
-
-    {
-        id: utilService.makeId(),
         type: "note-img",
         isPinned: false,
         info: {
-            url: "assets/imgs/console-meme.jpg",
-            title: 'Programming MOTO'
+            url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/IMG_Academy_Logo.svg/1200px-IMG_Academy_Logo.svg.png",
+            title: ''
         },
         style: {
             backgroundColor: "#CDF2CA"
@@ -80,28 +40,23 @@ const gNotes = [
         type: "note-todos",
         isPinned: false,
         info: {
-            title: "Get my stuff together",
+            title: '',
             todos: [
                 {
                     id: utilService.makeId(),
-                    txt: 'First sprint',
+                    txt: 'choclatte',
                     doneAt: new Date()
                 },
                 {
                     id: utilService.makeId(),
-                    txt: 'Second sprint',
+                    txt: 'milk',
                     doneAt: new Date()
                 },
                 {
                     id: utilService.makeId(),
-                    txt: 'Third sprint',
+                    txt: 'cola',
                     doneAt: new Date()
                 },
-                {
-                    id: utilService.makeId(),
-                    txt: 'Final sprint',
-                    doneAt: null
-                }
             ]
         },
         style: {
@@ -111,23 +66,10 @@ const gNotes = [
 
     {
         id: utilService.makeId(),
-        type: 'note-video',
-        isPinned: false,
-        info: {
-            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
-            title: '2 hours into the sprint'
-        },
-        style: {
-            backgroundColor: '#32AFA9'
-        }
-    },
-
-    {
-        id: utilService.makeId(),
         type: 'note-txt',
         isPinned: false,
         info: {
-            title: 'Real programmers count from 0',
+            title: '',
             txt: ''
         },
         style: {
@@ -140,53 +82,13 @@ const gNotes = [
         type: 'note-video',
         isPinned: false,
         info: {
-            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
-            title: 'Saturday night 21:59'
+            url: 'https://www.youtube.com/embed/dauW62xmwZQ',
+            title: ''
         },
         style: {
             backgroundColor: '#B983FF'
         }
     },
-
-    {
-        id: utilService.makeId(),
-        type: 'note-txt',
-        isPinned: false,
-        info: {
-            title: 'Did you know?',
-            txt: `All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds.`
-        },
-        style: {
-            backgroundColor: "#FCFFA6"
-        }
-    },
-
-
-    {
-        id: utilService.makeId(),
-        type: 'note-video',
-        isPinned: false,
-        info: {
-            url: 'https://www.youtube.com/embed?v=dauW62xmwZQ',
-            title: 'Me on Saturday night 22:01'
-        },
-        style: {
-            backgroundColor: '#CC7351'
-        }
-    },
-
-    {
-        id: utilService.makeId(),
-        type: "note-img",
-        isPinned: false,
-        info: {
-            url: "assets/imgs/brain-dead.jpg",
-            title: 'My brain at the end of a sprint'
-        },
-        style: {
-            backgroundColor: "#FCFFA6"
-        }
-    }
 
 ]
 
@@ -199,61 +101,15 @@ function query(filterBy = null) {
     return Promise.resolve(filteredNotes)
 }
 
-function getPinnedNotes() {
-    const pinnedNotes = _loadPinnedNotesFromStorage()
-    return Promise.resolve(pinnedNotes)
-}
-
-function _getFilteredNotes(notes, filterBy) {
-    const { type } = filterBy
-    const title = filterBy.title.txt
-    let filteredNotes = notes
-    if (type !== 'all') {
-        filteredNotes = notes.filter(note => {
-            return note.type === `note-${type}`
-        })
-    }
-    filteredNotes = _getFilteredNotesByTitle(filteredNotes, title)
-    return filteredNotes
-}
-
-function _getFilteredNotesByTitle(notes, txt) {
-    if (!txt) txt = ''
-    txt = txt.toLowerCase()
-    return notes.filter(note => {
-        let title = note.info.title.toLowerCase()
-        return title.includes(txt)
-    })
-}
-
 function toggleTodo(noteId, todoId) {
     const notes = _loadNotesFromStorage()
     const note = notes.find(note => noteId === note.id)
     const todo = note.info.todos.find(todo => todo.id === todoId)
-    if (!todo.doneAt) todo.doneAt = new Date()
-    else todo.doneAt = null
+    if (!todo.doneAt) {
+        todo.doneAt = new Date()
+    } else todo.doneAt = null
     _saveNotesToStorage(notes)
     return Promise.resolve(note)
-}
-
-function togglePin(note) {
-    const noteId = note.id
-    let notes = _loadNotesFromStorage()
-    let pinnedNotes = _loadPinnedNotesFromStorage()
-    if (!pinnedNotes) pinnedNotes = []
-    if (!note.isPinned) {
-        let noteIdx = notes.findIndex(note => note.id === noteId)
-        notes.splice(noteIdx, 1)
-        pinnedNotes = [note, ...pinnedNotes]
-    } else {
-        let noteIdx = pinnedNotes.findIndex(note => note.id === noteId)
-        pinnedNotes.splice(noteIdx, 1)
-        notes = [note, ...notes]
-    }
-    note.isPinned = !note.isPinned
-    _saveNotesToStorage(notes)
-    _savePinnedNotesToStorage(pinnedNotes)
-    return Promise.resolve()
 }
 
 function changeBgc(noteId, color) {
@@ -317,7 +173,27 @@ function _createNotes() {
     }
 }
 
+function _getFilteredNotes(notes, filterBy) {
+    const { type } = filterBy
+    const title = filterBy.title.txt
+    let filteredNotes = notes
+    if (type !== 'all') {
+        filteredNotes = notes.filter(note => {
+            return note.type === `note-${type}`
+        })
+    }
+    filteredNotes = _getFilteredNotesByTitle(filteredNotes, title)
+    return filteredNotes
+}
 
+function _getFilteredNotesByTitle(notes, txt) {
+    if (!txt) txt = ''
+    txt = txt.toLowerCase()
+    return notes.filter(note => {
+        let title = note.info.title.toLowerCase()
+        return title.includes(txt)
+    })
+}
 
 function _saveNotesToStorage(notes) {
     storageService.saveToStorage(KEY, notes)
@@ -327,10 +203,3 @@ function _loadNotesFromStorage() {
     return storageService.loadFromStorage(KEY)
 }
 
-function _savePinnedNotesToStorage(notes) {
-    storageService.saveToStorage(KEY_PINNED, notes)
-}
-
-function _loadPinnedNotesFromStorage() {
-    return storageService.loadFromStorage(KEY_PINNED)
-}

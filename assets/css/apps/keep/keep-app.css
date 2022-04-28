@@ -1,48 +1,40 @@
-.keep-app{
-    font-family: lato-regular;
+.keep-app {
     width: 400px;
-    /* height: 90vh; */
     margin: auto;
-    background-color: rgb(252, 252, 252);
-    border-left: 1px solid rgb(219, 219, 219);
-    border-right: 1px solid rgb(219, 219, 219);
+    background: rgb(2, 0, 36);
+    background: rgb(2, 0, 36);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(57, 57, 71, 1) 0%, rgba(34, 45, 54, 1) 0%, rgba(49, 83, 125, 1) 0%, rgba(66, 83, 128, 1) 0%, rgba(72, 117, 148, 1) 100%);
 }
 
-.keep-app h2{
-    font-family: lato-bold;
-}
-
-
-.new-note-btn{
+.btn-new-note {
     text-align: center;
     display: block;
     width: 200px;
     margin: 10px auto;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     border: none;
     background: unset;
 }
 
-.new-note-btn:hover{
-    color: blue;
+.btn-new-note:hover {
+    color: rgb(40, 40, 247);
 }
 
-
-
 .notes-list,
-.pinned-notes{
+.pinned-notes {
     padding: 20px;
     width: 380px;
     margin: auto;
 }
 
-@media screen and (min-width: 650px){
-    .keep-app{
+@media screen and (min-width: 650px) {
+    .keep-app {
         width: 620px;
     }
 
     .notes-list,
-    .pinned-notes{
+    .pinned-notes {
         width: 575px;
         column-count: 2;
         column-gap: 30px;
@@ -51,14 +43,14 @@
 }
 
 
-@media screen and (min-width: 890px){
+@media screen and (min-width: 890px) {
 
-    .keep-app{
+    .keep-app {
         width: 870px;
     }
 
     .notes-list,
-    .pinned-notes{
+    .pinned-notes {
         width: 850px;
         column-count: 3;
         column-gap: 30px;
@@ -66,15 +58,14 @@
 }
 
 
+@media screen and (min-width: 1050px) {
 
-@media screen and (min-width: 1050px){
-    
-    .keep-app{
+    .keep-app {
         width: 1020px;
     }
 
     .notes-list,
-    .pinned-notes{
+    .pinned-notes {
         width: 1000px;
         column-gap: 30px;
     }

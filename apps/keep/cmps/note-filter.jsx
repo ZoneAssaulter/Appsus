@@ -1,5 +1,10 @@
 import { utilService } from "../../../services/util.service.js"
 
+
+
+
+
+// Todo: fumction NoteFilter 
 export function NoteFilter({ notesTypes, onSetTypeFilter, currType }) {
 
     return (
@@ -7,9 +12,13 @@ export function NoteFilter({ notesTypes, onSetTypeFilter, currType }) {
             <h2>Filter notes by type:</h2>
             <div className="filter-btns">
                 {notesTypes.map(type => {
-                    return <button title={utilService.capitalFirstLetter(type)} className={type === currType ? 'active' : ''}
-                        key={type} onClick={() => onSetTypeFilter(type)} >
-                        <img src={`assets/imgs/filter-by-${type}.png`} /></button>
+                    return (
+                        <button title={utilService.capitalFirstLetter(type)}
+                            className={type === currType ? 'active' : ''}
+                            key={type} onClick={() => onSetTypeFilter(type)} >
+                            <img src={`assets/img/icons-keep/filter/filter-by-${type}.png`} />
+                        </button>
+                    )
                 })}
             </div>
         </section>
