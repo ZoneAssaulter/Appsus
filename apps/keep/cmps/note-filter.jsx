@@ -9,8 +9,7 @@ export function NoteFilter({ notesTypes, onSetTypeFilter, currType }) {
                 {notesTypes.map(type => {
                     return <button title={utilService.capitalFirstLetter(type)} className={type === currType ? 'active' : ''}
                         key={type} onClick={() => onSetTypeFilter(type)} >
-                        <img src={`assets/img/${type}.jpg`} />
-                    </button>
+                        <img src={`assets/imgs/filter-by-${type}.png`} /></button>
                 })}
             </div>
         </section>

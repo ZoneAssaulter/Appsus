@@ -8,7 +8,7 @@ export const notesService = {
     deleteNote,
     duplicateNote,
     changeBgc,
-    // togglePin,
+    togglePin,
     toggleTodo,
     saveEdit,
     _saveNotesToStorage,
@@ -17,8 +17,8 @@ export const notesService = {
 }
 
 
-const STORAGE_KEY = 'notesDB'
-const STORAGE_KEY_PINNED = 'pinnedNotesDB'
+const KEY = 'notesDB'
+const KEY_PINNED = 'pinnedDB'
 
 
 const gNotes = [
@@ -40,7 +40,7 @@ const gNotes = [
         type: 'note-video',
         isPinned: false,
         info: {
-            url: 'https://www.youtube.com/embed/btPJPFnesV4',
+            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
             title: 'Waking up on a sprint day'
         },
         style: {
@@ -114,7 +114,7 @@ const gNotes = [
         type: 'note-video',
         isPinned: false,
         info: {
-            url: 'https://www.youtube.com/embed/zRIbf6JqkNc',
+            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
             title: '2 hours into the sprint'
         },
         style: {
@@ -140,7 +140,7 @@ const gNotes = [
         type: 'note-video',
         isPinned: false,
         info: {
-            url: 'https://www.youtube.com/embed/9jK-NcRmVcw',
+            url: 'https://www.youtube.com/watch?v=dauW62xmwZQ',
             title: 'Saturday night 21:59'
         },
         style: {
@@ -167,7 +167,7 @@ const gNotes = [
         type: 'note-video',
         isPinned: false,
         info: {
-            url: 'https://www.youtube.com/embed/3YxaaGgTQYM',
+            url: 'https://www.youtube.com/embed?v=dauW62xmwZQ',
             title: 'Me on Saturday night 22:01'
         },
         style: {
@@ -236,25 +236,25 @@ function toggleTodo(noteId, todoId) {
     return Promise.resolve(note)
 }
 
-// function togglePin(note) {
-//     const noteId = note.id
-//     let notes = _loadNotesFromStorage()
-//     let pinnedNotes = _loadPinnedNotesFromStorage()
-//     if (!pinnedNotes) pinnedNotes = []
-//     if (!note.isPinned) {
-//         let noteIdx = notes.findIndex(note => note.id === noteId)
-//         notes.splice(noteIdx, 1)
-//         pinnedNotes = [note, ...pinnedNotes]
-//     } else {
-//         let noteIdx = pinnedNotes.findIndex(note => note.id === noteId)
-//         pinnedNotes.splice(noteIdx, 1)
-//         notes = [note, ...notes]
-//     }
-//     note.isPinned = !note.isPinned
-//     _saveNotesToStorage(notes)
-//     _savePinnedNotesToStorage(pinnedNotes)
-//     return Promise.resolve()
-// }
+function togglePin(note) {
+    const noteId = note.id
+    let notes = _loadNotesFromStorage()
+    let pinnedNotes = _loadPinnedNotesFromStorage()
+    if (!pinnedNotes) pinnedNotes = []
+    if (!note.isPinned) {
+        let noteIdx = notes.findIndex(note => note.id === noteId)
+        notes.splice(noteIdx, 1)
+        pinnedNotes = [note, ...pinnedNotes]
+    } else {
+        let noteIdx = pinnedNotes.findIndex(note => note.id === noteId)
+        pinnedNotes.splice(noteIdx, 1)
+        notes = [note, ...notes]
+    }
+    note.isPinned = !note.isPinned
+    _saveNotesToStorage(notes)
+    _savePinnedNotesToStorage(pinnedNotes)
+    return Promise.resolve()
+}
 
 function changeBgc(noteId, color) {
     const notes = _loadNotesFromStorage()
@@ -320,17 +320,17 @@ function _createNotes() {
 
 
 function _saveNotesToStorage(notes) {
-    storageService.saveToStorage(STORAGE_KEY, notes)
+    storageService.saveToStorage(KEY, notes)
 }
 
 function _loadNotesFromStorage() {
-    return storageService.loadFromStorage(STORAGE_KEY)
+    return storageService.loadFromStorage(KEY)
 }
 
 function _savePinnedNotesToStorage(notes) {
-    storageService.saveToStorage(STORAGE_KEY_PINNED, notes)
+    storageService.saveToStorage(KEY_PINNED, notes)
 }
 
 function _loadPinnedNotesFromStorage() {
-    return storageService.loadFromStorage(STORAGE_KEY_PINNED)
+    return storageService.loadFromStorage(KEY_PINNED)
 }
