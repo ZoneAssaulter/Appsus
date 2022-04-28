@@ -7,7 +7,7 @@ export const emailService = {
 }
 
 const STORAGE_KEY = 'mailDB'
-const gEmails = [
+let gEmails = [
   {
     id: utilService.makeId(),
     subject: `Hello darkness my old friend`,
@@ -112,7 +112,7 @@ function _createEmails() {
   if (!emails || !emails.length) {
     emails = gEmails
   }
-  _saveEmailsToStorage()
+  _saveEmailsToStorage(emails)
 }
 
 function _createEmail(emailToSave, status = 'sent', id = utilService.makeId()) {

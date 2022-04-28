@@ -2,7 +2,6 @@ import { eventBusService } from '../../../services/event-bus.service.js'
 import { utilService } from '../../../services/util.service.js'
 import { emailService } from '../services/email.service.js'
 
-
 export class MailApp extends React.Component {
   state = {
     emails: [],
@@ -25,12 +24,11 @@ export class MailApp extends React.Component {
 
   componentDidMount() {
     window.scrollTo(0, 0)
-    // this.loadEmails()
+
+    this.loadEmails()
     this.removeEventBus()
     this.searchParams()
   }
-
-  
 
   componentWillUnmount() {
     this.removeEventBus()
@@ -64,8 +62,6 @@ export class MailApp extends React.Component {
   }
 
   render() {
-    emailService.testFunc()
-    
     return (
       <section className='mail-app'>
         <aside className='aside-container'>
