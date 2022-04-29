@@ -2,9 +2,6 @@ import { utilService } from "../../../services/util.service.js"
 
 
 
-
-
-// Todo: fumction NoteFilter 
 export function NoteFilter({ notesTypes, onSetTypeFilter, currType }) {
 
     return (

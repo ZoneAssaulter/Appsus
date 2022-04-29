@@ -50,7 +50,6 @@ export class EditTodosNote extends React.Component {
     }
 
 
-    // todo: onclick add todo shortIf end click save editend add button
     render() {
         const { note, newTodoTxt, isAddNewTodoOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
@@ -71,7 +70,10 @@ export class EditTodosNote extends React.Component {
                             {info.todos.map((todo, idx) => {
                                  return (
                                     <div className="todo-to-edit" key={idx}><input type="text" value={todo.txt} onChange={() => this.handleChange(event, idx)} />
-                                        <button className="remove-todo-btn" onClick={() => this.onDeleteTodo(event, note, todo.id)}>x</button></div>
+                                        <button className="remove-todo-btn" onClick={() => 
+                                        this.onDeleteTodo(event, note, todo.id)}>x
+                                        </button>
+                                        </div>
                                 )
                             })}
                             <button className="save-todos-changes-btn"> Save Edits</button>

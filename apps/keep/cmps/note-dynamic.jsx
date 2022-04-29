@@ -1,10 +1,3 @@
-//Todo: we need 8 import 
-// from service- notesService/eventBusService
-// from cmps -TxtNote/NewImgNote/ImgNote/TodosNote/VideoNote/PickNoteColor/EditNoteModal
-//end open class DynamicNote end get state withchek if heve color/edit modal
-
-
-
 import { notesService } from "../services/note.service.js"
 import { eventBusService } from "../../../services/event-bus.service.js"
 
@@ -42,7 +35,6 @@ export class DynamicNote extends React.Component {
             })
     }
 
-    // :(onDeleteNote)grt from eventBusService(emit) enf put msg (like ew do in book)
     onDeleteNote = (noteId) => {
         notesService.deleteNote(noteId)
             .then(() => {
@@ -51,7 +43,6 @@ export class DynamicNote extends React.Component {
                     'user-msg', { txt: 'Note Deleted', type: 'success' })
             })
     }
-    // :(duplicateNote)like onDeleteNote
     onDuplicateNote = (noteId) => {
         notesService.duplicateNote(noteId)
             .then(() => {
@@ -61,7 +52,6 @@ export class DynamicNote extends React.Component {
             })
     }
 
-    // : change bgColor gte from notesService
     onChangeBgc = (noteId, color) => {
         notesService.changeBgc(noteId, color)
             .then((note) => {
@@ -69,19 +59,15 @@ export class DynamicNote extends React.Component {
                 this.onToggleColorMenu()
             })
     }
-    // :(togglePin) get from  notesService enf get loadNotes
 
-    // :(toggleColor) setState = state if is not true
     onToggleColorMenu = () => {
         this.setState({ isColorMenuOn: !this.state.isColorMenuOn })
     }
 
-    // :(toggleEdit) setState = state if is not true
     onToggleEditModal = () => {
         this.setState({ isEditModalOn: !this.state.isEditModalOn })
     }
 
-    // :(saveEdit) get from notesService end emit from eventBusService(:type/txt)
     onSaveEdit = (ev, note) => {
         ev.preventDefault()
         notesService.saveEdit(note)
@@ -92,14 +78,13 @@ export class DynamicNote extends React.Component {
             })
     }
 
-    // todo:(funcExportEmail)=switch/case for (exportEmail) to conect to email
 
-    
     render() {
         const { note, isColorMenuOn, isEditModalOn } = this.state
         if (!note) return <React.Fragment></React.Fragment>
         return (
-            <section className="note-dynamic" style={{ backgroundColor: note.style.backgroundColor }} >
+            <section className="note-dynamic" style={{ backgroundColor: note.style.backgroundColor }}>
+                {/* style={{ backgroundColor: note.style.backgroundColor }} */}
                 {note.type === 'note-txt' && <TxtNote note={note} />}
                 {note.type === 'note-video' && <VideoNote note={note} />}
                 {note.type === 'note-img' && <ImgNote note={note} />}
