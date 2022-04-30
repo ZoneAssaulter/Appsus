@@ -45,7 +45,7 @@ class _AppHeader extends React.Component {
         <Link to='/' className='logo'>
           <h1>Appsus</h1>
         </Link>
-        {nameApp === 'book' || nameApp === '/' ? (
+        {/* {nameApp === 'book' || nameApp === '/' ? (
           ''
         ) : (
           <div className='search-container'>
@@ -59,7 +59,7 @@ class _AppHeader extends React.Component {
               autoComplete='off'
             />
           </div>
-        )}
+        )} */}
         <button>
           <img
             className='btn-apps'
