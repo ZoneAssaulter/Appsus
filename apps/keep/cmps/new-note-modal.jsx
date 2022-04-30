@@ -1,9 +1,3 @@
-//Todo: we need 6 import 
-// from service- notesService/eventBusService
-// from cmps -NewTxtNote/NewImgNote/NewTodosNote/NewVideoNote
-//end open class NewNoteModal end get state with obj: newNoteType
-
-
 import { NewTxtNote } from "./note-new-txt.jsx"
 import { NewImgNote } from "./note-new-img.jsx"
 import { NewTodosNote } from "./note-new-todo.jsx"
@@ -19,13 +13,11 @@ export class NewNoteModal extends React.Component {
         newNoteType: 'note-txt'
     }
 
-    //todo: get ev end setState = state:ev.value()--(onSetNoteType)
     onSetNoteType = ({ target }) => {
         const value = target.value
         this.setState({ newNoteType: value })
     }
 
-    //todo: get from notesService(saveNote) end emit from eventBusService
     onSaveNote = (ev, note) => {
         ev.preventDefault()
         notesService.saveNote(note)
@@ -36,7 +28,6 @@ export class NewNoteModal extends React.Component {
             )
     }
 
-    //todo:after{}this.state render h1/select(option) end page with new... end close modal
     render() {
         const { exportedMail } = this.props
         const { newNoteType } = this.state

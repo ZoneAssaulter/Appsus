@@ -38,7 +38,7 @@ export class EditNoteModal extends React.Component {
 
                                 {note.type === 'note-txt' &&
                                     <React.Fragment>
-                                        <textarea name="txt" id="txt" cols="30" rows="10" 
+                                        <textarea name="txt" id="txt" cols="30" rows="10" value={info.txt}
                                             onChange={this.handleChange}></textarea>
                                     </React.Fragment>}
 
@@ -46,14 +46,14 @@ export class EditNoteModal extends React.Component {
                                     <React.Fragment>
                                         <label htmlFor="url">Edit Image URL </label>
                                         <img src={info.url} />
-                                        <input type="text" id="url" name='url' 
+                                        <input type="text" id="url" name='url' value={info.url}
                                             onChange={this.handleChange} />
                                     </React.Fragment>}
 
                                 {note.type === 'note-video' &&
                                     <React.Fragment>
                                         <label htmlFor="url">Edit Video URL </label>
-                                        <input type="text" id="url" name='url'
+                                        <input type="text" id="url" name='url'value={info.url}
                                             onChange={this.handleChange} />
                                     </React.Fragment>}
 
