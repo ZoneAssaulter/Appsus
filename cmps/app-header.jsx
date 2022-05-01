@@ -45,7 +45,7 @@ class _AppHeader extends React.Component {
         <Link to='/' className='logo'>
           <h1>Appsus</h1>
         </Link>
-        {/* {nameApp === 'book' || nameApp === '/' ? (
+        {/* {nameApp === 'bookapp' || nameApp === '/' ? (
           ''
         ) : (
           <div className='search-container'>
