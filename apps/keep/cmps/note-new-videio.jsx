@@ -3,7 +3,7 @@ export class NewVideoNote extends React.Component{
     state = {
         note: {
             type: this.props.type,
-            isPinned: false,
+            // isPinned: false,
             info: {
                 url: '',
                 title: ''

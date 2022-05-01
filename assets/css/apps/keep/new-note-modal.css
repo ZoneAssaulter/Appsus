@@ -13,8 +13,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 254);
-    margin: 5% auto 15% auto;
+    background-color: #ffffff;
     width: 320px;
     height: 340px;
     text-align: center;
@@ -24,6 +23,7 @@
 
 .new-note-modal h2 {
     padding: 20px;
+    font-family: monospace;
 }
 
 .new-note-modal .close-modal-btn {
@@ -31,19 +31,24 @@
     right: 2%;
     top: 2%;
     border: none;
-    border-radius: 50%;
+    border-radius: 40%;
     text-align: center;
     font-size: 0.7rem;
 }
 
-.type-modal select{
-    margin-bottom: 2px;
-    margin-left:11.5%;
+.new-note-modal .close-modal-btn:hover {
+    background-color: rgb(246, 86, 86);
+}
+
+.type-modal select {
+    margin-bottom: 3px;
+    margin-left: 11%;
 }
 
 .save-new-note-btn {
     background: unset;
     border: none;
+    text-decoration: underline solid brown;
     font-size: 1rem;
     margin-top: 10px;
 }

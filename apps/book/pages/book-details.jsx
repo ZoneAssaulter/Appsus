@@ -94,11 +94,12 @@ export class BookDetails extends React.Component {
         <div className="book-details">
           <div className="img-container">
             <img src={thumbnail} />
+
           </div>
           <div className="details-container">
             <h2>{this.capitalFirstLetter(title)}</h2>
             <h3>{subtitle}</h3>
-            {/* <h3 className="gray">{authors.join(', ')}</h3> */}
+            <h3 className="gray">{authors.join(', ')}</h3>
             <button onClick={this.onGoBack}>Go back</button>
             <button onClick={this.onRemoveBook}>Remove book</button>
             <div className="pagination-container">
@@ -109,10 +110,10 @@ export class BookDetails extends React.Component {
             <h4>Categories: {categories.join(', ')}</h4>
             <h4>Language: {language.toUpperCase()}</h4>
             <h4 className={className}>
+            {isOnSale && (<img className='sale-img' src='../assets/img/sale.jpeg' />)}
               Price: {utilService.getCurrencySign(currencyCode) + ' '}
               {amount}
             </h4>
-            <h4>Is the book on sale? {isOnSale ? 'Yesssss' : 'no'}</h4>
             <h4>
               Page count: {pageCount} , Reading duration:
               {' ' + this.getReadingDuration(pageCount)}

@@ -29,7 +29,7 @@ const gNotes = [
             title: 'choose title'
         },
         style: {
-            backgroundColor: "green"
+            backgroundColor: "#e0ffff"
         }
     },
 
@@ -58,7 +58,7 @@ const gNotes = [
             ]
         },
         style: {
-            backgroundColor: "pink"
+            backgroundColor: "#faf0e6"
         }
     },
 
@@ -71,7 +71,7 @@ const gNotes = [
             txt: 'choose text'
         },
         style: {
-            backgroundColor: "yellow"
+            backgroundColor: "#e0ffff"
         }
     },
 
@@ -84,7 +84,7 @@ const gNotes = [
             title: 'choose title'
         },
         style: {
-            backgroundColor: '#B983FF'
+            backgroundColor: '#faf0e6'
         }
     },
 

@@ -1,6 +1,4 @@
 
-
-
 export function TodosNote({ note, onToggleTodo }) {
 
     return (

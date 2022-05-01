@@ -11,7 +11,7 @@ export class KeepApp extends React.Component {
 
     state = {
         notes: [],
-        pinnedNotes: [],
+        // pinnedNotes: [],
         isNewNoteModalOn: false,
         filterBy: {
             title: '',
@@ -26,6 +26,7 @@ export class KeepApp extends React.Component {
         this.searchParams()
         this.removeEventBus = eventBusService.on('search', (txt) => this.debbouncedFunc({ txt }))
     }
+
     componentWillUnmount() {
         this.removeEventBus();
     }
@@ -45,8 +46,6 @@ export class KeepApp extends React.Component {
             ({ filterBy: { ...prevState.filterBy, type: filterType } }),
             this.loadNotes)
     }
-
-
 
     searchParams = () => {
         const query = new URLSearchParams(this.props.location.search)
@@ -72,37 +71,23 @@ export class KeepApp extends React.Component {
 
 
     render() {
-        const { notes, pinnedNotes, isNewNoteModalOn, exportedMail } = this.state
+        const { notes, isNewNoteModalOn } = this.state
         if (!notes) return <React.Fragment></React.Fragment>
         const notesTypes = ['all', 'txt', 'todos', 'img', 'video']
         let { type } = this.state.filterBy
         return (
             <section className="keep-app">
+             
                 <NoteFilter notesTypes={notesTypes}
                     onSetTypeFilter={this.onSetTypeFilter} currType={type} />
-                <button className="btn-new-note"
-                    onClick={this.toggleNewNoteModal}>Create New Note</button>
+                <button className="btn-new-note" onClick={this.toggleNewNoteModal}>Create New Note</button>
                 {isNewNoteModalOn &&
-                    <NewNoteModal loadNotes={this.loadNotes}
-                        toggleNewNoteModal={this.toggleNewNoteModal}
-                    />
+                    <NewNoteModal loadNotes={this.loadNotes} toggleNewNoteModal={this.toggleNewNoteModal} />
                 }
                 <section className="all-notes-container">
-                    {(pinnedNotes && pinnedNotes.length > 0) &&
-                        <section className="pinned-notes-container">
-                            <section className="pinned-notes ">
-                                {pinnedNotes.map(note => {
-                                    return (
-                                        <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
-                                    )
-                                })}
-                            </section>
-                            <hr />
-                        </section>}
                     <section className="notes-list">
                         {notes.map(note => {
-                            return <DynamicNote key={note.id} note={note}
-                                loadNotes={this.loadNotes} />
+                            return <DynamicNote key={note.id} note={note} loadNotes={this.loadNotes} />
                         })}
                     </section>
                 </section>
