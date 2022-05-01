@@ -68,7 +68,8 @@ export class EditNoteModal extends React.Component {
                         </React.Fragment>}
 
                     <button
-                        className="close-modal-btn" onClick={() => onToggleEditModal()}>x
+                        className="close-modal-btn" onClick={() => onToggleEditModal()}>
+                            x
                     </button>
 
                 </section>

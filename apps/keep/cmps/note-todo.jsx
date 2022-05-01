@@ -1,6 +1,4 @@
 
-
-
 export function TodosNote({ note, onToggleTodo }) {
 
     return (
@@ -13,7 +11,7 @@ export function TodosNote({ note, onToggleTodo }) {
                             {todo.txt.charAt(0).toUpperCase() + todo.txt.slice(1)}
                         </li>
                         <button onClick={() => onToggleTodo(note.id, todo.id)}>
-                            {todo.doneAt ? '☒' : '☐'}
+                            {todo.doneAt ? '☑' : '☐'}
                         </button>
                     </div>
                 ))}

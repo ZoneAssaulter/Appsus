@@ -43,6 +43,7 @@ export class DynamicNote extends React.Component {
                     'user-msg', { txt: 'Note Deleted', type: 'success' })
             })
     }
+
     onDuplicateNote = (noteId) => {
         notesService.duplicateNote(noteId)
             .then(() => {
@@ -84,13 +85,12 @@ export class DynamicNote extends React.Component {
         if (!note) return <React.Fragment></React.Fragment>
         return (
             <section className="note-dynamic" style={{ backgroundColor: note.style.backgroundColor }}>
-                {/* style={{ backgroundColor: note.style.backgroundColor }} */}
                 {note.type === 'note-txt' && <TxtNote note={note} />}
                 {note.type === 'note-video' && <VideoNote note={note} />}
                 {note.type === 'note-img' && <ImgNote note={note} />}
                 {note.type === 'note-todos' && <TodosNote note={note} onToggleTodo={this.onToggleTodo} />}
 
-                <section className="note-btns">
+                <section className="btns-note">
                     <button title="Delete" onClick={() =>
                         this.onDeleteNote(note.id)}>
                         <img src="assets/img/icons-keep/delete.png" />
@@ -110,13 +110,13 @@ export class DynamicNote extends React.Component {
                         <img src="assets/img/icons-keep/change-color.png" />
                     </button>
 
-                    {isColorMenuOn && <PickNoteColor noteId={note.id}
-                        onChangeBgc={this.onChangeBgc} />}
+                    {isColorMenuOn && <PickNoteColor noteId={note.id} onChangeBgc={this.onChangeBgc} />}
                 </section>
-                {isEditModalOn && <EditNoteModal note={note}
-                    onToggleEditModal={this.onToggleEditModal}
+
+                {isEditModalOn && <EditNoteModal note={note} onToggleEditModal={this.onToggleEditModal}
                     onSaveEdit={this.onSaveEdit} />}
             </section>
         )
     }
 }
+``
