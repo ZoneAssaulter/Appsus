@@ -35,9 +35,8 @@
     margin-bottom: 30px;
 }
 
-
 @media screen and (min-width: 650px) {
-    
+
     .note-dynamic {
         width: 250px;
         display: inline-block;
