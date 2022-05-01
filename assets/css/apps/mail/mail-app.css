@@ -1,6 +1,6 @@
 .mail-app {
   font-family: lato-regular;
-  margin: 30px;
+  margin: 15px;
   height: 100vh;
 }
 
@@ -27,8 +27,8 @@
 @media (min-width:980px) {
     .mail-app {
         display: flex;
-        gap: 50px;
-        margin: 50px;
+        gap: 15px;
+        margin: 10px;
     }
 
     .mail-app .aside-container {

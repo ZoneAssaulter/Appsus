@@ -40,8 +40,10 @@
   color: white;
   position: absolute;
   right: 12px;
-  top: 10px;
+  top: 15px;
   cursor: pointer;
+  font-size: 21px;
+  
 }
 
 .email-compose-header input{
@@ -97,6 +99,9 @@ input:focus {
   background-color: inherit;
   font-size: 1rem;
   cursor: pointer;
+  align-self: center;
+  font-size: 21px;
+  transform: translate(0, 7px);
 }
 
 @media (min-width: 650px) {

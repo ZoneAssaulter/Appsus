@@ -35,27 +35,37 @@ export class EmailPreview extends React.Component {
 
     return (
       <section className={`email-preview ${email.isRead ? 'read' : ''}`}>
-        <div
+        <tr
           className='email-preview-container'
           onMouseEnter={this.onShowOptions}
           onMouseLeave={this.onHideOptions}
           onClick={this.onToggleExpandPriview}
         >
           <div className='email-content'>
-            <button
-              onClick={(ev) => onToggleField(ev, email.id, 'isStarred')}
-              className={`email-star ${email.isStarred}`}
-              title={email.isStarred ? 'Mark as unstarred' : 'Mark as starred'}
-            >
-              <i className='fas fa-star'></i>
-            </button>
-            <h3>
-              {email.status === 'sent'
-                ? this.getUserName(email.to)
-                : this.getUserName(email.from)}
-            </h3>
-            <span>{email.subject}</span>
-            <LongTxt text={email.body} />
+            <td className='starred-btn-cell'>
+              <button
+                onClick={(ev) => onToggleField(ev, email.id, 'isStarred')}
+                className={`email-star ${email.isStarred}`}
+                title={
+                  email.isStarred ? 'Mark as unstarred' : 'Mark as starred'
+                }
+              >
+                <i className='fas fa-star'></i>
+              </button>
+            </td>
+            <td className='email-from-to'>
+              <h3>
+                {email.status === 'sent'
+                  ? this.getUserName(email.to)
+                  : this.getUserName(email.from)}
+              </h3>
+            </td>
+            <td className='email-subject'>
+              <span>{email.subject}</span>
+            </td>
+            <td className='email-body'>
+              <LongTxt text={email.body} />
+            </td>
           </div>
           {isShowOptions ? (
             <div className='options-btn'>
@@ -91,7 +101,7 @@ export class EmailPreview extends React.Component {
           ) : (
             <span>{utilService.getTimeFromStamp(email.sentAt)}</span>
           )}
-        </div>
+        </tr>
         {isExpandPreview && <EmailExpandPreview email={email} />}
       </section>
     )
